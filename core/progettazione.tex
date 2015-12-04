@@ -6,5 +6,81 @@ Robby\footnote{Nel caso in cui la posizione non sia nota, è possibile conoscerl
 muovendo il Robby verso un angolo della mappa.}.\\
 
 Si è introdotta in precedenza la volontà di utilizzare una rete neurale per
-governare i Robby. A tal fine si è individuato l'approccio \emph{NEAT}
-(NeuroEvolution of Augmenting Topologies)\cite{stanley2002evolving}
+governare i Robby.
+
+FIXME aggiungi qualche cosina sul concetto di rete neurale
+\\
+
+
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{img/neat-genome.png}
+	\caption{Rappresentazione di un genoma in NEAT \cite{stanley2002evolving}}
+	\label{fig:neatgenome}
+\end{figure}
+A tal fine si è individuato l'approccio \emph{NEAT}
+(NeuroEvolution of Augmenting Topologies)\cite{stanley2002evolving}. Tale
+approccio consente un'evoluzione puramente genetica della rete, compresa la
+topologia. Per ottenere tale scopo ciascuna rete viene definita con un
+\textbf{genoma} (\cref{fig:neatgenome}) e rappresentata come una sequenza di
+nodi e archi (o geni).
+A ciascun arco viene inoltre associato un numero monotono crescente denominato
+\textbf{innovation}. Tale numero viene utilizzato per stabilire in quale momento
+temporale sia stato evoluto il gene ad esso associato. La rappresentazione del
+genoma appena descritta consente di misurare una distanza fra i genomi sulla
+base della loro similitudine strutturale. Tramite questo meccanismo è possibile
+suddividere gli individui in specie entro le quali verrà applicato il crossover.
+Il suddetto approccio consente di proteggere i genomi promettenti sulla base
+della loro specie permettendo una maggiore varietà genetica ed evitando di
+conseguenza l'occorrenza di massimi locali nella ricerca, altrimenti molto
+difficili da superare.\\
+
+Al fine di evolvere le reti vengono utilizzati i due approcci tipici degli
+algoritmi genetici: \emph{mutazione} e \emph{crossover}.
+Le reti vengono mutate con le seguenti modalità:
+\begin{description}
+	\item[Mutazione dei pesi:] Vengono mutati i pesi dei geni della rete.
+	\item[Mutazione delle connessioni:] Viene aggiunto un gene che collega
+	due nodi casuali della rete.
+	\item[Mutazione dei nodi:] Viene spezzato un collegamento esistente ed
+	inserito un nodo collegato ai due capi del suddetto
+	(\cref{fig:nodemutate}).
+\end{description}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{img/neat-mutation.png}
+	\caption{Mutazioni di aggiunta connessioni e nodi
+	\cite{stanley2002evolving}.}
+	\label{fig:nodemutate}
+\end{figure}
+
+Rispetto al meccanismo di crossover, l'approccio NEAT deve far fronte problemi
+di compatibilità tra reti con topologie differenti. Viene dunque utilizzata la
+distanza fra genomi $\delta$ calcolata nel modo seguente:
+\[\delta = \frac{c_1 E}{N} + \frac{c_2 D}{N} + c_3 \overline{W}\]
+Dove:
+\begin{itemize}
+	\item $E$ è il numero dei geni in \textbf{eccesso}, ovvero i geni
+	di un genoma che possiedono innovazione maggiore della massima
+	innovazione dell'altro genoma considerato.
+	\item $D$ è il numero di geni \textbf{disgiunti}, ovvero i geni presenti
+	solo in uno dei due individui.
+	\item $\overline{W}$ è la differenza media dei pesi dei geni comuni ai
+	due individui.
+	\item $N$ è il massimo tra il numero dei geni dei due genomi.
+
+	\item $c_1$,$c_2$,$c_3$ sono tre coefficienti utilizzati per tarare
+	l'importanza dei tre fattori sopra indicati.
+\end{itemize}
+
+Una volta individuate le specie tramite la distanza fra genomi, tra gli
+individui della stessa specie viene effettuato il crossover. Viene effettuata
+una scansione delle due liste di geni: se il gene risulta in comune viene
+ereditato il peso casualmente da uno dei due genitori, mentre i geni in eccesso
+o disgiunti vengono aggiunti alla rete risultante (\cref{fig:neatcrossover}).
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{img/neat-crossover.png}
+	\caption{Crossover tra due genomi differenti \cite{stanley2002evolving}.}
+	\label{fig:neatcrossover}
+\end{figure}
