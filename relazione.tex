@@ -1,5 +1,7 @@
 \documentclass[a4paper,10pt,abstracton]{scrartcl}
 \usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{hyperref}
 \usepackage[italian]{babel}
 
 
@@ -9,8 +11,6 @@
 \subtitle{Progetto di Fisica dei Sistemi Complessi}
 
 \author{Davide Berardi, Michele Corazza}
-
-
 
 \maketitle
 
@@ -35,6 +35,7 @@ blablabla
  \item Librerie?
  \item Macchine usate
 \end{itemize}
+\input{core/strumenti.tex}
 
 
 \section{Progettazione}
@@ -44,6 +45,7 @@ blablabla
  \item NEAT
  \item Viste globali
 \end{itemize}
+\input{core/progettazione.tex}
 
 
 \section{Implementazione}
@@ -53,6 +55,7 @@ blablabla
  \item Viste locali e globali
  \item Rete neurale (neat feed forward)
 \end{itemize}
+\input{core/implementazione.tex}
 
 
 \section{Valutazione e Sviluppi Futuri}
@@ -61,8 +64,14 @@ blablabla
  \item Migliorare le viste globali
  \item Confronto con algo genetico
 \end{itemize}
+\input{core/valutazione.tex}
 
 
 \section{Conclusioni}
+\input{core/conclusioni.tex}
+
+
+\bibliography{core/biblio}
+\bibliographystyle{plain}
 
 \end{document}

@@ -2,3 +2,21 @@
  \item Collaborazione fra robby
  \item Superare l'algoritmo genetico
 \end{itemize}
+
+Un approccio interessante rispetto al suddetto problema riguarda la possibilità
+di collaborazione fra più di un Robby sulla stessa mappa. Questa modifica
+consente di evidenziare eventuali interazioni complesse fra i Robby. Da questo
+punto di vista è fondamentale individuare un paradigma di comunicazione
+efficiente, in grado cioè di massimizzare lo scambio di informazioni nel modo
+più sintetico possibile.\\
+
+Da questo punto di vista, l'approccio genetico puro risulta problematico:
+Aumentando il numero di Robby presenti sulla mappa, il numero di configurazioni
+considerate dall'algoritmo genetico aumenta in modo esponenziale, rendendo
+computazionalmente dispendiosa la ricerca di corrispondenze efficaci fra
+configurazioni in input e possibili azioni. Si è deciso pertanto di tentare
+un approccio basato su reti neurali. Tale approccio consente infatti di non
+mantenere la corrispondenza diretta tra dati in input e azione da intraprendere,
+in quanto tali corrispondenze sono codificate direttamente all'interno della
+rete. Fra i vari approcci presenti in letteratura, si è scelto di procedere
+mediante una soluzione che evolva la rete in modo puramente genetico.

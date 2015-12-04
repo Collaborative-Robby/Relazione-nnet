@@ -3,27 +3,27 @@
  \item Robby genetico
 \end{itemize}
 Il problema affrontato riguarda l'utilizzo di un robot, chiamato Robby, il cui 
-scopo è quello di pulire una stanza dalla forma quadrata da delle lattine.
+scopo è quello di pulire una stanza dalla forma quadrata raccogliendo delle lattine.
 La mappa entro la quale il Robby si muove consiste di una griglia 
 bidimensionale di celle, che ammette solo posizioni intere.
 Le lattine vengono quindi posizionate su celle inizialmente ignote al Robby. Si 
-suppone che il robby sia equipaggiato con sensori in grado di distinguere i muri 
-che delimitano l'area esplorabile e l'eventuale presenza di lattine. La distanza 
+suppone che il Robby sia equipaggiato con sensori in grado di distinguere i muri 
+che delimitano l'area esplorabile e di individuare l'eventuale presenza di lattine. La distanza 
 massima che il Robby può osservare è un parametro variabile, ma è comunque 
 limitata. Altrettanto limitato è il numero di passi discreti che il Robby può 
 effettuare; l'azione di raccolta delle lattine viene considerata nel conteggio 
-totale dei passi effettuati. La disposizione delle lattine sulla mappa è 
+totale dei passi effettuati. La disposizione degli oggetti sulla mappa è 
 statica, in altre parole non è possibile che compaiano
 %(FIXME)
 ulteriori lattine durante l'esecuzione.
 \\
-Rispetto ai possibili spostamenti, il Robby può effettuare solo spostamenti 
+Rispetto ai possibili spostamenti, il Robby può muoversi solamente
 in quattro direzioni, non vengono perciò considerate direzioni espresse in 
-forma di angolo. Ciascun passo consente al Robby di spostarsi fra due celle 
+forma di angolo. Ciascun passo consente perciò al Robby di spostarsi fra due celle 
 adiacenti.
 \\
 Una modalità possibile per affrontare il suddetto problema consiste 
-nell'utilizzo di un approccio puramente genetico. Si procede creando una 
+nell'utilizzo di un approccio puramente genetico; si procede creando una 
 mappatura fra le possibili configurazioni della vista e le mosse che il Robby 
 può effettuare. Tale mappatura viene evoluta tramite crossover e mutazioni 
-casuali, al fine di massimizzarne l'efficienza.
+casuali, al fine di massimizzarne l'efficienza del Robby.
