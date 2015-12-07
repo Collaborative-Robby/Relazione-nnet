@@ -6,9 +6,19 @@ Robby\footnote{Nel caso in cui la posizione non sia nota, è possibile conoscerl
 muovendo il Robby verso un angolo della mappa.}.\\
 
 Si è introdotta in precedenza la volontà di utilizzare una rete neurale per
-governare i Robby.
-
-FIXME aggiungi qualche cosina sul concetto di rete neurale
+governare i Robby. Per rete neurale si intende un grafo orientato ai cui archi 
+sono associati dei pesi, ed il cui scopo è quello di apprendere una certa 
+funzione. Tale approccio è ispirato alla biologia ed in particolare al sistema 
+nervoso centrale degli animali. Da una serie di nodi di input il segnale viene 
+propagato lungo la rete e ciascun neurone calcola la somma dei valori sui 
+propri archi entranti moltiplicati per il peso di ciascun arco. Esistono vari 
+modelli per emulare una rete neurale biologica: è possibile per esempio 
+utilizzare percettroni, ovvero neuroni che, calcolato il valore in input dai 
+propri archi entranti, propagano l'output sui propri archi uscenti solo se esso 
+supera una certa soglia. Nella rete da noi implementata si utilizzano invece 
+neuroni artificiali veri e propri, che utilizzano una funzione (nel nostro caso 
+un sigmoide) per amplificare o ridurre il valore in input e propagarlo 
+attraverso la rete.
 \\
 
 
@@ -43,7 +53,8 @@ Le reti vengono mutate con le seguenti modalità:
 	\item[Mutazione delle connessioni:] Viene aggiunto un gene che collega
 	due nodi casuali della rete.
 	\item[Mutazione dei nodi:] Viene spezzato un collegamento esistente ed
-	inserito un nodo collegato ai due capi del suddetto
+	inserito un nodo collegato ai due capi del suddetto. Il collegamento 
+	esistente viene disabilitato.
 	(\cref{fig:nodemutate}).
 \end{description}
 
@@ -77,7 +88,8 @@ Una volta individuate le specie tramite la distanza fra genomi, tra gli
 individui della stessa specie viene effettuato il crossover. Viene effettuata
 una scansione delle due liste di geni: se il gene risulta in comune viene
 ereditato il peso casualmente da uno dei due genitori, mentre i geni in eccesso
-o disgiunti vengono aggiunti alla rete risultante (\cref{fig:neatcrossover}).
+o disgiunti vengono aggiunti in ogni caso alla rete risultante 
+(\cref{fig:neatcrossover}).
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{img/neat-crossover.png}
