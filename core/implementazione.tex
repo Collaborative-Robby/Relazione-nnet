@@ -1,0 +1,58 @@
+La struttura di base del programma è stata sviluppata in ottica modulare: a 
+run-time è possibile specificare plug-in diversi per gestire la logica dei 
+Robby. Tali plug-in devono implementare diverse funzioni: muovere il Robby 
+scegliendo la direzione appropriata, generare le strutture dati proprie 
+all'algoritmo (es le reti neurali o i genomi per l'algoritmo genetico puro) e 
+liberare la memoria allocata in precedenza. La logica di base del programma 
+rimane invece invariata, compresa la funzione di fitness. Tale funzione 
+deve tenere conto del numero di lattine raccolte e di eventuali fallimenti 
+nelle mosse effettuate (es il Robby si muove nella direzione di un muro, oppure 
+tenta di raccogliere una lattina su una cella vuota). La fitness è definita 
+come segue:
+\[\sum\limits_{i=0}^{r} \frac{gc_i}{tc\cdot mn+1}+\frac{sm_i}{t\cdot tc 
+\cdot mn + 1}\]
+Dove:
+\begin{itemize}
+ \item $r$ è il numero di Robby presenti su ciascuna mappa;
+ \item $gc_i$ è il numero di lattine raccolte dall'i-esimo Robby;
+ \item $tc$ è il numero totale di lattine per ciascuna mappa;
+ \item $mn$ è il numero totale di mappe;
+ \item $sm_i$ è il numero di mosse corrette effettuate dall'i-esimo Robby;
+ \item $t$ è il numero di turni totali concessi al singolo Robby.
+\end{itemize}
+Tale formula considera il successo di tutte le mosse possibili come la raccolta 
+di una singola lattina ed incrementa di uno il numero totale di lattine. Il 
+valore della funzione è compreso fra 0 e 1, dove 0 è il fallimento totale, 
+mentre 1 è il successo totale (tutte le lattine raccolte, nessuna mossa 
+sbagliata).
+\\
+Al fine di consentire la comunicazione dei Robby, viene mantenuta una lista 
+globale di messaggi. Ciascun messaggio contiene l'identificatore univoco del 
+Robby mittente, la propria vista locale, la propria posizione e l'ultima mossa 
+da esso effettuata. Tali informazioni vengono poi combinate dal plug-in 
+selezionato per scegliere la strategia migliore.
+\\
+La vista locale ai Robby è una semplice matrice quadrata che viene popolata dal 
+core del programma per mostrare ciò che vede il Robby entro una distanza 
+specificata parametricamente. Tale vista non è però quadrata: alcune celle che 
+sarebbero incluse in una vista quadrata sono più distanti dal Robby rispetto al 
+raggio specificato. Per ovviare a tale problema si è scelto di procedere 
+utilizzando il seno discreto per distinguere le celle visibili in questo modo:
+\[height(n)=\lfloor r \cdot sin(n\cdot\frac{\pi}{2\cdot r})\rfloor \]
+Dove:
+\begin{itemize}
+  \item $r$ è il raggio del cerchio da generare; 
+  \item $n$ è il valore intero che rappresenta la distanza tra il punto in 
+  esame sull'asse delle ascisse e il centro, ed è quindi compreso fra 1 e r.
+\end{itemize}
+Si procede iterando n per calcolare quante celle considerare sull'asse delle 
+ordinate sopra alla cella individuata da n. Si ottiene così un quarto di 
+cerchio, ed è quindi possibile ruotarlo per ottenere l'intero cerchio discreto.
+Una volta ottenuto tale cerchio, le celle al suo interno vengono popolate con 
+valori interi che ne rappresentano lo stato(vuoto, lattina, Robby). Le celle 
+esterne che sono presenti sulla matrice quadrata vengono impostate come 
+sconosciute e non sono considerate dall'algoritmo.
+\\
+Per implementare la vista globale (detta anche known map) prima di ciascun 
+turno vengono controllate le viste locali dei Robby e vengono applicate sulla 
+mappa globale le informazioni da esse ricavate.

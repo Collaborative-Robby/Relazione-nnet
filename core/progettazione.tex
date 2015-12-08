@@ -20,7 +20,13 @@ propri archi entranti, propagano l'output sui propri archi uscenti solo se esso
 supera una certa soglia. Nella rete da noi implementata si utilizzano invece 
 neuroni artificiali veri e propri, che utilizzano una funzione (nel nostro caso 
 un sigmoide) per amplificare o ridurre il valore in input e propagarlo 
-attraverso la rete.
+attraverso la rete. Un altro aspetto riguardante le reti neurali riguarda il 
+numero di livelli nascosti della rete. È possibile creare reti senza livelli 
+intermedi fra il livello degli input e quello degli output. La capacità 
+espressiva di tali reti è tuttavia limitata: non è possibile, per esempio, 
+calcolare un semplice xor fra due valori senza introdurre almeno un livello 
+nascosto\cite{norvigrusselai}. In \cref{fig:nnet} mostriamo un esempio di rete 
+neurale con 4 input, un livello nascosto e 3 nodi di output.
 \\
 
 
@@ -98,3 +104,11 @@ o disgiunti vengono aggiunti in ogni caso alla rete risultante
 	\caption{Crossover tra due genomi differenti \cite{stanley2002evolving}.}
 	\label{fig:neatcrossover}
 \end{figure}
+
+Rispetto al problema in esame, l'utilizzo delle reti neurali rende possibile ai 
+singoli Robby di mantenere informazioni sull'intera mappa. In particolare nella 
+nostra implementazione si è scelto di memorizzare una mappa che contiene 
+informazioni sulle singole celle, che possono essere sconosciute se nessun 
+Robby le ha percepite tramite i suoi sensori, contenere un Robby o una 
+lattina, oppure essere vuote. Tale mappa viene poi fornita in input alla rete 
+neurale in alternativa alle viste locali dei Robby.
