@@ -5,8 +5,9 @@ per le mappe di lato 5. Gli altri parametri sono stati scelti tramite varie
 esecuzioni di prova per valutarne l'impatto sulla performance. Il numero di 
 passi che i Robby possono effettuare è stato selezionato per impedire la 
 strategia banale che attraversa l'intera mappa per esplorarla e raccogliere le 
-lattine. Da test che non verranno qua analizzati in dettaglio è emerso che con 
-un numero sufficiente di round il sistema è in grado di raccogliere fino al 
+lattine (50 turni per robby per le mappe di lato 10, 13 per quelle di lato 5). 
+Da test che non verranno qua analizzati in dettaglio è emerso che, con 
+un numero sufficiente di round, il sistema è in grado di raccogliere fino al 
 99\% delle lattine.
 \\
 Nei test da noi effettuati, contrariamente a quanto atteso, l'utilizzo della 
@@ -41,7 +42,7 @@ non utilizzate nella precedente fase di training. Su mappe di lato 5 ha
 raggiunto valori di fitness pari a $0.81$ mentre per mappe di lato 10 valori
 pari a $0.78$.  La funzione di fitness sulla mappa più piccola
 ha una crescita più rapida che conduce a valori leggermente più alti a causa
-del minor spazio di ricerca sulla mappa.\\
+del minor spazio di ricerca.\\
 
 Per valutare l'impatto della vista globale presentiamo ora i risultati di 4000
 generazioni, su mappe di lato 10 con due Robby:

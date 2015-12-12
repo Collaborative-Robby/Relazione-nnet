@@ -20,11 +20,13 @@ propri archi entranti, propagano l'output sui propri archi uscenti solo se esso
 supera una certa soglia. Nella rete da noi implementata si utilizzano invece 
 neuroni artificiali veri e propri, che utilizzano una funzione (nel nostro caso 
 un sigmoide) per amplificare o ridurre il valore in input e propagarlo 
-attraverso la rete. Un altro aspetto riguardante le reti neurali riguarda il 
+attraverso la rete. Un altro aspetto riguardante le reti neurali è costituito 
+dal 
 numero di livelli nascosti della rete. È possibile creare reti senza livelli 
 intermedi fra il livello degli input e quello degli output. La capacità 
 espressiva di tali reti è tuttavia limitata: non è possibile, per esempio, 
-calcolare un semplice xor fra due valori senza introdurre almeno un livello 
+calcolare un semplice or esclusivo fra due valori senza introdurre almeno un 
+livello 
 nascosto\cite{norvigrusselai}. In \cref{fig:nnet} mostriamo un esempio di rete 
 neurale con 4 input, un livello nascosto e 3 nodi di output.
 \\
@@ -38,8 +40,9 @@ neurale con 4 input, un livello nascosto e 3 nodi di output.
 \end{figure}
 A tal fine si è individuato l'approccio \emph{NEAT}
 (NeuroEvolution of Augmenting Topologies)\cite{stanley2002evolving}. Tale
-approccio consente un'evoluzione puramente genetica della rete, compresa la
-topologia. Per ottenere tale scopo ciascuna rete viene definita con un
+approccio consente un'evoluzione puramente genetica della rete, della quale 
+viene sviluppata anche la
+topologia. Per ottenere tale scopo ciascuna rete viene definita come un
 \textbf{genoma} (\cref{fig:neatgenome}) e rappresentata come una sequenza di
 nodi e archi (o geni).
 A ciascun arco viene inoltre associato un numero monotono crescente denominato
@@ -49,8 +52,8 @@ genoma appena descritta consente di misurare una distanza fra i genomi sulla
 base della loro similitudine strutturale. Tramite questo meccanismo è possibile
 suddividere gli individui in specie entro le quali verrà applicato il crossover.
 Il suddetto approccio consente di proteggere i genomi promettenti sulla base
-della loro specie permettendo una maggiore varietà genetica ed evitando di
-conseguenza l'occorrenza di massimi locali nella ricerca, altrimenti molto
+della loro specie permettendo una maggiore varietà genetica ed evitando, per 
+quanto possibile, l'occorrenza di massimi locali nella ricerca, altrimenti molto
 difficili da superare.\\
 
 Al fine di evolvere le reti vengono utilizzati i due approcci tipici degli
@@ -73,7 +76,7 @@ Le reti vengono mutate con le seguenti modalità:
 	\label{fig:nodemutate}
 \end{figure}
 
-Rispetto al meccanismo di crossover, l'approccio NEAT deve far fronte problemi
+Rispetto al meccanismo di crossover, l'approccio NEAT deve far fronte a problemi
 di compatibilità tra reti con topologie differenti. Viene dunque utilizzata la
 distanza fra genomi $\delta$ calcolata nel modo seguente:
 \[\delta = \frac{c_1 E}{N} + \frac{c_2 D}{N} + c_3 \overline{W}\]
@@ -81,22 +84,22 @@ Dove:
 \begin{itemize}
 	\item $E$ è il numero dei geni in \textbf{eccesso}, ovvero i geni
 	di un genoma che possiedono innovazione maggiore della massima
-	innovazione dell'altro genoma considerato.
+	innovazione dell'altro genoma considerato;
 	\item $D$ è il numero di geni \textbf{disgiunti}, ovvero i geni presenti
-	solo in uno dei due individui.
+	solo in uno dei due individui;
 	\item $\overline{W}$ è la differenza media dei pesi dei geni comuni ai
-	due individui.
-	\item $N$ è il massimo tra il numero dei geni dei due genomi.
+	due individui;
+	\item $N$ è il massimo tra il numero dei geni dei due genomi;
 
 	\item $c_1$,$c_2$,$c_3$ sono tre coefficienti utilizzati per tarare
 	l'importanza dei tre fattori sopra indicati.
 \end{itemize}
 
 Una volta individuate le specie tramite la distanza fra genomi, tra gli
-individui della stessa specie viene effettuato il crossover. Viene effettuata
+individui della stessa specie viene effettuato il crossover. Si procede mediante
 una scansione delle due liste di geni: se il gene risulta in comune viene
 ereditato il peso casualmente da uno dei due genitori, mentre i geni in eccesso
-o disgiunti vengono aggiunti in ogni caso alla rete risultante 
+o disgiunti vengono aggiunti in ogni caso alla rete risultante
 (\cref{fig:neatcrossover}).
 
 \begin{figure}[H]
@@ -106,7 +109,8 @@ o disgiunti vengono aggiunti in ogni caso alla rete risultante
 \end{figure}
 
 Rispetto al problema in esame, l'utilizzo delle reti neurali rende possibile ai 
-singoli Robby di mantenere informazioni sull'intera mappa. In particolare nella 
+singoli Robby l'utilizzo di informazioni sull'intera mappa. In particolare 
+nella 
 nostra implementazione si è scelto di memorizzare una mappa che contiene 
 informazioni sulle singole celle, che possono essere sconosciute se nessun 
 Robby le ha percepite tramite i suoi sensori, contenere un Robby o una 

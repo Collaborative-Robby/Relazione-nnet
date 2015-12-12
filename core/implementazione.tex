@@ -1,16 +1,18 @@
-La struttura di base del programma è stata sviluppata in ottica modulare: a 
+La struttura di base del programma è stata sviluppata in ottica modulare 
+utilizzando il linguaggio C++ e la sua libreria standard: a 
 run-time è possibile specificare plug-in diversi per gestire la logica dei 
 Robby. Tali plug-in devono implementare diverse funzioni: muovere il Robby 
 scegliendo la direzione appropriata, generare le strutture dati proprie 
-all'algoritmo (es le reti neurali o i genomi per l'algoritmo genetico puro) e 
+all'algoritmo (es. le reti neurali o i genomi per l'algoritmo genetico puro) e 
 liberare la memoria allocata in precedenza. La logica di base del programma 
 rimane invece invariata, compresa la funzione di fitness. Tale funzione 
 deve tenere conto del numero di lattine raccolte e di eventuali fallimenti 
-nelle mosse effettuate (es il Robby si muove nella direzione di un muro, oppure 
+nelle mosse effettuate (se il Robby si muove nella direzione di un muro, 
+oppure 
 tenta di raccogliere una lattina su una cella vuota). La fitness è definita 
 come segue:
-\[\sum\limits_{i=0}^{r} \frac{gc_i}{tc\cdot mn+1}+\frac{sm_i}{t\cdot tc 
-\cdot mn + 1}\]
+\[\sum\limits_{i=0}^{r} \frac{gc_i}{tc\cdot mn+1}+\frac{sm_i}{t\cdot (tc 
+\cdot mn + 1)}\]
 Dove:
 \begin{itemize}
  \item $r$ è il numero di Robby presenti su ciascuna mappa;
@@ -49,7 +51,7 @@ Si procede iterando n per calcolare quante celle considerare sull'asse delle
 ordinate sopra alla cella individuata da n. Si ottiene così un quarto di 
 cerchio, ed è quindi possibile ruotarlo per ottenere l'intero cerchio discreto.
 Una volta ottenuto tale cerchio, le celle al suo interno vengono popolate con 
-valori interi che ne rappresentano lo stato(vuoto, lattina, Robby). Le celle 
+valori interi che ne rappresentano lo stato (vuoto, lattina, Robby). Le celle 
 esterne che sono presenti sulla matrice quadrata vengono impostate come 
 sconosciute e non sono considerate dall'algoritmo.
 \\
@@ -61,20 +63,21 @@ lattine.
 \\
 
 Rispetto all'approccio NEAT classico si sono rese necessarie alcune modifiche
-per adattare la tecnica al problema in esame. Rispetto alla creazione iniziale
-della rete, nell'articolo originale\cite{stanley2002evolving} le nuove reti
+per adattare la tecnica al problema in esame. Nell'articolo 
+originale\cite{stanley2002evolving} le nuove reti
 vengono inizializzate come completamente connesse. Nell'implementazione
 presentata si è scelto di procedere con reti inizialmente vuote (prive di
 archi) al fine di consentire la ricerca di una rete che abbia una struttura
 minimale.\\
 
-Rispetto alla evoluzione topologica, l'algoritmo NEAT genera reti che possono
+Rispetto all'evoluzione topologica, l'algoritmo NEAT genera reti che possono
 contenere cicli. Tali reti, che vengono dette ricorrenti (\emph{recurrent neural
 network}), offrono vantaggi espressivi soprattutto per problemi nei quali ci sia
 la necessità di mantenere una ``memoria" all'interno della rete, che pertanto
 non viene azzerata tra due esecuzioni. Tale struttura risulta molto adatta a
 gestire un flusso continuo di dati. Tuttavia, rispetto al problema in esame,
-tale struttura della rete non offre vantaggi e introduce complessità
+tale topologia della rete non offre vantaggi significativi e introduce 
+complessità
 computazionale nell'attivazione della rete, che deve essere strutturata per
 evitare l'occorrenza di cicli infiniti che farebbero altrimenti divergere
 l'intero algoritmo. Per ovviare a tale problema si è esteso l'algoritmo NEAT per
@@ -86,7 +89,7 @@ mutazione delle connessioni i livelli dei due nodi adiacenti all'arco da inserir
 vengono controllati e, nel caso in cui la connessione sia orientata dal livello
 più alto verso il più basso viene invertito il verso dell'arco. Nel caso in cui
 i due nodi siano sullo stesso livello l'arco non viene aggiunto. Durante la
-mutazione dei nodi il valore del nuovo nodo viene calcolato come la il valore
+mutazione dei nodi il valore del nuovo neurone viene calcolato come la il valore
 medio tra i due livelli fra cui verrà inserito (\cref{fig:mutatefraction}).
 Tale approccio introduce un ordinamento totale fra livelli, impedendo la
 creazione di cicli senza aumentare la complessità computazionale.
@@ -157,8 +160,8 @@ creazione di cicli senza aumentare la complessità computazionale.
 	\caption{Mutazione di un nodo con il meccanismo delle frazioni. Dopo aver
 	selezionato l'arco $(a,f)$ viene aggiunto il nodo $n$ e viene posizionato su
 	un livello intermedio fra 0 e $\frac{1}{2}$. Il nuovo livello ha quindi
-	valore $\frac{1}{4}$. È rappresentato in rosso l'arco disabilitato e in
-	verde i nuovi archi.}
+	valore $\frac{1}{4}$. Sono rappresentati in rosso l'arco disabilitato 
+	e in verde i nuovi archi.}
 	\label{fig:mutatefraction}
 \end{figure}
 
