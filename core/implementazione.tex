@@ -165,3 +165,129 @@ creazione di cicli senza aumentare la complessità computazionale.
 	\label{fig:mutatefraction}
 \end{figure}
 
+\begin{figure}[H]
+\begin{minipage}{.20\textwidth}
+\begin{tikzpicture}[
+		->,
+		input node/.style={circle, draw, thick, fill=green!20,minimum size = 3mm},
+		hidden node/.style={circle, draw, thick, fill=blue!20,minimum size = 3mm},
+		output node/.style={circle, draw, thick, fill=red!20,minimum size = 3mm},
+		dummy node/.style={circle, thick}
+]
+	\node[dummy node] (pi0) {};
+	\node[input node, right of=pi0] (i0) {};
+	\draw (pi0) -- (i0);
+
+	\foreach \i in {1,...,5} {
+		\auxcount=\i;
+		\advance\auxcount by -1;
+		\node[dummy node, below of=pi\the\auxcount](pi\i) {};
+		\node[input node, below of=i\the\auxcount](i\i) {};
+
+		\draw (pi\i) -- (i\i);
+	}
+
+	\node[output node,right of=i1,xshift=1cm] (o0) {};
+	\node[dummy node,right of=o0] (po0) {};
+	\draw (o0) -- (po0);
+	\foreach \o in {1,...,3} {
+		\auxcount=\o;
+		\advance\auxcount by -1;
+		\node[output node, below of=o\the\auxcount](o\o) {};
+		\node[dummy node, below of=po\the\auxcount](po\o) {};
+		\draw (o\o) -- (po\o);
+	}
+\end{tikzpicture}
+\subcaption{}
+\label{fig:mut1}
+\end{minipage}
+\hspace{.10\textwidth}
+\begin{minipage}{.20\textwidth}
+\begin{tikzpicture}[
+		->,
+		input node/.style={circle, draw, thick, fill=green!20,minimum size = 3mm},
+		hidden node/.style={circle, draw, thick, fill=blue!20,minimum size = 3mm},
+		output node/.style={circle, draw, thick, fill=red!20,minimum size = 3mm},
+		dummy node/.style={circle, thick}
+]
+	\node[dummy node] (pi0) {};
+	\node[input node, right of=pi0] (i0) {};
+	\draw (pi0) -- (i0);
+
+	\foreach \i in {1,...,5} {
+		\auxcount=\i;
+		\advance\auxcount by -1;
+		\node[dummy node, below of=pi\the\auxcount](pi\i) {};
+		\node[input node, below of=i\the\auxcount](i\i) {};
+
+		\draw (pi\i) -- (i\i);
+	}
+
+	\node[output node,right of=i1,xshift=1cm] (o0) {};
+	\node[dummy node,right of=o0] (po0) {};
+	\draw (o0) -- (po0);
+	\foreach \o in {1,...,3} {
+		\auxcount=\o;
+		\advance\auxcount by -1;
+		\node[output node, below of=o\the\auxcount](o\o) {};
+		\node[dummy node, below of=po\the\auxcount](po\o) {};
+		\draw (o\o) -- (po\o);
+	}
+
+	\draw (i3) -- (o1);
+\end{tikzpicture}
+\subcaption{}
+\label{fig:mut2}
+\end{minipage}
+\hspace{.10\textwidth}
+\begin{minipage}{.20\textwidth}
+\begin{tikzpicture}[
+		->,
+		input node/.style={circle, draw, thick, fill=green!20,minimum size = 3mm},
+		hidden node/.style={circle, draw, thick, fill=blue!20,minimum size = 3mm},
+		output node/.style={circle, draw, thick, fill=red!20,minimum size = 3mm},
+		dummy node/.style={circle, thick}
+]
+	\node[dummy node] (pi0) {};
+	\node[input node, right of=pi0] (i0) {};
+	\draw (pi0) -- (i0);
+
+	\foreach \i in {1,...,5} {
+		\auxcount=\i;
+		\advance\auxcount by -1;
+		\node[dummy node, below of=pi\the\auxcount](pi\i) {};
+		\node[input node, below of=i\the\auxcount](i\i) {};
+
+		\draw (pi\i) -- (i\i);
+	}
+
+	\node[hidden node,right of=i3,yshift=.5cm] (h0) {};
+
+	\node[output node,right of=i1,xshift=1cm] (o0) {};
+	\node[dummy node,right of=o0] (po0) {};
+	\draw (o0) -- (po0);
+	\foreach \o in {1,...,3} {
+		\auxcount=\o;
+		\advance\auxcount by -1;
+		\node[output node, below of=o\the\auxcount](o\o) {};
+		\node[dummy node, below of=po\the\auxcount](po\o) {};
+		\draw (o\o) -- (po\o);
+	}
+
+	\draw (i3) -- (h0);
+	\draw (h0) -- (o1);
+\end{tikzpicture}
+\subcaption{}
+\label{fig:mut3}
+\end{minipage}
+\caption{Un'evoluzione di esempio di una rete: La rete è inizialmente vuota
+(\cref{fig:mut1}),
+per poi mutare (tramite una \textbf{mutazione delle connessioni}) un arco tra
+due nodi scelti casualmente
+(\cref{fig:mut2}),
+infine avviene una \textbf{mutazione di nodo} sul
+collegamento appena creato
+(\cref{fig:mut3})
+.}
+\centering
+\end{figure}
